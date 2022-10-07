@@ -4,17 +4,22 @@
     path: '{{ config_directory }}'
     state: directory
 
+- name: Ensure that the folder exists
+  file:
+    path: '{{ config_directory }}/config'
+    state: directory
+
 - name: Pull waypoint.txt
   get_url:
-    url: "{{ waypoint }}"
-    dest: "{{ config_directory }}/waypoint.txt"
-    mode: "0644"
+    url: '{{ waypoint }}'
+    dest: '{{ config_directory }}/waypoint.txt'
+    mode: '0644'
 
 - name: Pull genesis.blob
   get_url:
-    url: "{{ genesis }}"
-    dest: "{{config_directory }}/genesis.blob"
-    mode: "0644"
+    url: '{{ genesis }}'
+    dest: '{{config_directory }}/genesis.blob'
+    mode: '0644'
 
 - name: Ensure that the data folder does not exist
   file:
@@ -23,26 +28,26 @@
 
 - name: Copy appropriate config file
   template:
-    src: "{{ node_type }}.yaml.j2"
-    dest: "{{ config_directory }}/config/{{ node_type }}.yaml"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: "0600"
+    src: '{{ node_type }}.yaml.j2'
+    dest: '{{ config_directory }}/config/{{ node_type }}.yaml'
+    owner: '{{ ansible_user }}'
+    group: '{{ ansible_user }}'
+    mode: '0600'
 
 - name: Open p2p port
   become: true
   ufw:
     rule: allow
     proto: tcp
-    port: "{{ p2p_port }}"
+    port: '{{ p2p_port }}'
 
 - name: Open prometheus port to the monitor IP
   become: true
   ufw:
     rule: allow
     proto: tcp
-    from_ip: "{{ monitor_ip}}"
-    port: "{{ prometheus_port }}"
+    from_ip: '{{ monitor_ip}}'
+    port: '{{ prometheus_port }}'
 
 - name: install nginx package
   become: true
@@ -82,5 +87,5 @@
     rule: allow
     port: '6181'
     proto: tcp
-    from_ip: "{{ fullnode_ip }}"
+    from_ip: '{{ fullnode_ip }}'
   when: node_type == "validator"

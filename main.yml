@@ -3,9 +3,9 @@
   hosts: '{{ target }}'
   gather_facts: false
   vars_files:
-    - "{{ network_varfile }}"
-    - "{{ node_type_varfile }}"
+    - '{{ network_varfile }}'
+    - '{{ node_type_varfile }}'
   roles:
-    # - aptos_install
-    # - aptos_configure
+    - aptos_install
+    - aptos_configure
     - aptos_launch
