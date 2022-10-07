@@ -1,0 +1,16 @@
+---
+- name: Copy service file
+  become: true
+  template:
+    src: "aptos.service.j2"
+    dest: "/etc/systemd/system/aptos.service"
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable aptos service
+  become: true
+  systemd:
+    name: "aptos"
+    daemon_reload: true
+    enabled: true

@@ -1,0 +1,14 @@
+[Unit]
+Description=Aptos {{ network }} {{ node_type }}
+After=network-online.target
+
+[Service]
+User=ubuntu
+WorkingDirectory={{ config_directory }}
+ExecStart=/usr/local/bin/aptos-node --config {{ config_directory }}/config/{{ node_type }}.yaml
+Restart=always
+RestartSec=3
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

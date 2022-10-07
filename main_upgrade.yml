@@ -1,0 +1,6 @@
+---
+- name: Upgrade to team's latest cut
+  hosts: '{{ target }}'
+  gather_facts: false
+  roles:
+    - aptos_upgrade

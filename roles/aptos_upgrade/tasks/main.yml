@@ -1,0 +1,43 @@
+---
+- name: Update apt repo and cache
+  become: true
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    upgrade: dist
+
+- name: Clone node repo
+  git:
+    repo: '{{ aptos_repo }}'
+    dest: '{{ aptos_directory }}'
+    version: '{{ aptos_version }}'
+    update: true
+    force: true
+    recursive: false
+
+- name: run cargo build command
+  shell:
+    cmd: "cargo build --release"
+    chdir: '{{ user_dir }}/aptos'
+  environment:
+    PATH: '{{ path }}'
+
+- name: Copy binaries
+  become: true
+  copy:
+    src: "{{ user_dir }}/aptos/target/release/{{ item }}"
+    dest: "/usr/local/bin"
+    owner: root
+    group: root
+    mode: 0755
+    remote_src: true
+  loop:
+    - aptos
+    - aptos-node
+
+- name: Restart aptos
+  become: true
+  systemd:
+    name: "aptos"
+    daemon_reload: true
+    state: restarted

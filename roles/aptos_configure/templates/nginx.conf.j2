@@ -1,0 +1,12 @@
+server {
+    listen 80;
+{% if network == 'mainnet' %}
+    server_name aptos-{{ node_type }}.polkachu.com;
+{% else %}
+    server_name aptos-testnet-{{ node_type }}.polkachu.com;
+{% endif %}
+    add_header Access-Control-Allow-Origin *;
+    location / {
+      proxy_pass http://127.0.0.1:8080;
+    }
+}

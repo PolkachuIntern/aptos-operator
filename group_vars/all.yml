@@ -1,0 +1,2 @@
+aptos_repo: https://github.com/aptos-labs/aptos-core
+prometheus_port: 9101
