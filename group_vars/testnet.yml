@@ -1,1 +1,3 @@
 aptos_version: '8f0cbd9396264cdce520d2e1002424b1592c576f'
+waypoint: https://raw.githubusercontent.com/aptos-labs/aptos-genesis-waypoint/main/testnet/waypoint.txt
+genesis: https://github.com/aptos-labs/aptos-genesis-waypoint/blob/main/testnet/genesis.blob?raw=true
