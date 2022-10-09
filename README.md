@@ -40,3 +40,11 @@ cp inventory.sample.yaml inventory.yaml
 ## Limitation
 
 These playbooks do not touch any key files. We already do it manually. We think you should too.
+
+## Additional Ideas for future implementation
+
+| Node                 | Validator                          | Validator Fullnode     | Public Fullnode                 |
+| -------------------- | ---------------------------------- | ---------------------- | ------------------------------- |
+| P2P port             | 6180 Open to all, 6181 Open to vfn | None open              | 6182 Open to all                |
+| Prometheus port 9101 | Open to monitor server             | Open to monitor server | Open to monitor server          |
+| REST PORT 8080       | Close                              | Close                  | Open or reverse proxy to 80/443 |
