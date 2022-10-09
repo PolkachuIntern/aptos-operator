@@ -1,10 +1,10 @@
 # Polkachu's notes on Aptos validator migration
 
-Aptos validators run a validator node (thereafter `validator`) and a validator fullnode (thereafter `vnf`). At times, we need to migrate validator or vfn.
+Aptos validators run a validator node (thereafter `validator`) and a validator fullnode (thereafter `vfn`). At times, we need to migrate validator or vfn.
 
 ## Our practice in key/config file management
 
-The vnf provides a full-synced redundant node in case we need to switch over the validator. We keep the following keys/configs on both validator and vfn, even if some of the files are not used based on the node type.
+The vfn provides a full-synced redundant node in case we need to switch over the validator. We keep the following keys/configs on both validator and vfn, even if some of the files are not used based on the node type.
 
 For one thing, we have one fewer thing to worry about when we need to switch. For another, we get a backup copy of the critical files. Combined with a local backup we have encrypted with the strongest math and buried under the deepest ocean, we have the peace of mind with 3 copies.
 
