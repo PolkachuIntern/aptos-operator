@@ -1,6 +1,6 @@
 # Polkachu's notes on Aptos validator migration
 
-Aptos validators run a validator node (thereafter `validator`) and a validator fullnode (thereafter `vnf`). At times, we need to migrate the validator.
+Aptos validators run a validator node (thereafter `validator`) and a validator fullnode (thereafter `vnf`). At times, we need to migrate validator or vfn.
 
 ## Our practice in key/config file management
 
@@ -20,7 +20,7 @@ keys
 └── validator-identity.yaml
 ```
 
-## Our practice in Provisioned Servers
+## Our Practice in Provisioned Servers
 
 We have 4 servers provisioned by Aptos currently.
 
@@ -30,6 +30,10 @@ We have 4 servers provisioned by Aptos currently.
 1. Testnet vfd: AMD and 1TB
 
 We have a mix of Intel and AMD chips, just to keep it interesting. Intel chips are proved to perform during the testnet, so we keep them as validator servers. AMD chips are more common in cloud data centers, so we want to run them just for the sake of it.
+
+Finally, we have a spare server, ready to step in at any moment.
+
+1. Spare Server: AMD and 1TB
 
 ## Scenarios of Node Migration
 
