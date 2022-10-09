@@ -83,3 +83,5 @@ Depending on the pruning setting, it is quite possible that we will eventually r
 If it is the validator running out of space, just follow "Planned Validator Migration" above. Since the new validator is fast-synced, it will have a much smaller disk requirement, so the problem is solved.
 
 If it is the vfn running out of space, just follow "Planned Validator Migration" too. We will simply sync a 2nd vfn and then phase out the original vfn. Since the new vfn is fast-synced, it will have a much smaller disk requirement, so the problem is solved.
+
+Finally, we will also consider a YOLO way to reduce the vfn storage requirement. If the vfn uptime is not strict, we will just stop the vfn, wipe the data folder and do fast-sync to quickly catch up. Just do not tell the team that Polkachu says so. 😅
