@@ -1,0 +1,8 @@
+---
+- name: Restart aptos
+  become: true
+  systemd:
+    name: 'aptos'
+    daemon_reload: true
+    state: restarted
+    enabled: true

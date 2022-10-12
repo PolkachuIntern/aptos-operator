@@ -1,4 +1,11 @@
 ---
+- name: Update apt repo and cache
+  become: true
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    upgrade: dist
+
 - name: Clone node repo
   git:
     repo: '{{ aptos_repo }}'

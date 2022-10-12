@@ -4,8 +4,7 @@
 
 1. Cover scenarios with multiple playbooks (initial setup, node upgrade, validator migration, etc)
 2. Support both testnet and mainnet
-3. Support both validator and validator fullnode
-4. Will support public fullnode at a later date
+3. Support both validator, validator fullnode and public fullnode
 
 ## TL/DR
 
@@ -18,9 +17,10 @@ ansible-playbook main.yml -e "target=validator_mainnet"
 The target can be:
 
 - validator_mainnet
+- vfn_mainnet
 - fullnode_mainnet
 - validator_testnet
-- fullnode_testnet
+- vfn_testnet
 
 ## Set up your own inventory file
 
@@ -37,14 +37,14 @@ cp inventory.sample.yaml inventory.yaml
 | `main.yml`         | Set up a new node                            |
 | `main_upgrade.yml` | Upgrade the node version and restart service |
 
+## Port management
+
+| Node                 | Validator                          | Validator Fullnode     | Public Fullnode        |
+| -------------------- | ---------------------------------- | ---------------------- | ---------------------- |
+| P2P port             | 6180 Open to all, 6181 Open to vfn | None open              | 6182 Open to all       |
+| Prometheus port 9101 | Open to monitor server             | Open to monitor server | Open to monitor server |
+| REST PORT 8080       | Closed                             | Closed                 | Reverse proxy to 80    |
+
 ## Limitation
 
 These playbooks do not touch any key files. We already do it manually. We think you should too.
-
-## Additional Ideas for future implementation
-
-| Node                 | Validator                          | Validator Fullnode     | Public Fullnode                 |
-| -------------------- | ---------------------------------- | ---------------------- | ------------------------------- |
-| P2P port             | 6180 Open to all, 6181 Open to vfn | None open              | 6182 Open to all                |
-| Prometheus port 9101 | Open to monitor server             | Open to monitor server | Open to monitor server          |
-| REST PORT 8080       | Close                              | Close                  | Open or reverse proxy to 80/443 |

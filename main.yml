@@ -8,4 +8,5 @@
   roles:
     - aptos_install
     - aptos_configure
+    - aptos_networking
     - aptos_launch

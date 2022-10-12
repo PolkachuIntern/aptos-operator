@@ -1,0 +1,61 @@
+---
+- name: Open prometheus port to the monitor IP
+  become: true
+  ufw:
+    rule: allow
+    proto: tcp
+    from_ip: '{{ monitor_ip}}'
+    port: '{{ prometheus_port }}'
+
+- name: open validator's port to vfn
+  become: true
+  ufw:
+    rule: allow
+    port: '6181'
+    proto: tcp
+    from_ip: '{{ fullnode_ip }}'
+  when: node_type == "validator"
+
+- name: Open p2p port for validator and fullnode
+  become: true
+  ufw:
+    rule: allow
+    proto: tcp
+    port: '{{ p2p_port }}'
+  when: node_type == "validator" or node_type == "fullnode"
+
+- name: install nginx package on fullnode
+  become: true
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+  when: node_type == "fullnode"
+
+- name: Copy nginx config file to reverse proxy on fullnode
+  become: true
+  template:
+    src: 'nginx.conf.j2'
+    dest: '/etc/nginx/sites-enabled/aptos_{{ node_type }}.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  when: node_type == "fullnode"
+
+- name: restart nginx service on fullnode
+  become: true
+  systemd:
+    name: nginx
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+  changed_when: false
+  when: node_type == "fullnode"
+
+- name: open nginx port on fullnode
+  become: true
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+  when: node_type == "fullnode"

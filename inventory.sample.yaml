@@ -5,30 +5,35 @@ all:
       ansible_host: 10.0.0.1
       node_type: validator
       network: mainnet
-      fullnode_ip: 10.0.0.2
-    fullnode_mainnet:
+      vfn_ip: 10.0.0.2
+    vfn_mainnet:
       ansible_host: 10.0.0.2
+      node_type: vfn
+      network: mainnet
+      validator_ip: 10.0.0.1
+    fullnode_mainnet:
+      ansible_host: 10.0.0.3
       node_type: fullnode
       network: mainnet
       validator_ip: 10.0.0.1
     validator_testnet:
-      ansible_host: 10.0.0.3
+      ansible_host: 10.0.1.1
       node_type: validator
       network: testnet
-      fullnode_ip: 10.0.0.4
-    fullnode_testnet:
-      ansible_host: 10.0.0.4
-      node_type: fullnode
+      vfn_ip: 10.0.1.2
+    vfn_testnet:
+      ansible_host: 10.0.1.2
+      node_type: vfn
       network: testnet
-      validator_ip: 10.0.0.3
+      validator_ip: 10.0.1.1
   vars:
     ansible_user: ubuntu
     ansible_port: 22
     ansible_ssh_private_key_file: '~/.ssh/id_rsa'
-    user_dir: "/home/{{ ansible_user }}"
-    path: "/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin:{{ user_dir }}/.cargo/bin"
-    aptos_directory: "{{ user_dir }}/aptos"
-    config_directory: "{{ user_dir }}/{{ network }}"
-    network_varfile: "group_vars/{{ network }}.yml"
-    node_type_varfile: "group_vars/{{ node_type }}.yml"
-    monitor_ip: "10.0.0.100"
+    user_dir: '/home/{{ ansible_user }}'
+    path: '/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin:{{ user_dir }}/.cargo/bin'
+    aptos_directory: '{{ user_dir }}/aptos'
+    config_directory: '{{ user_dir }}/{{ network }}'
+    network_varfile: 'group_vars/{{ network }}.yml'
+    node_type_varfile: 'group_vars/{{ node_type }}.yml'
+    monitor_ip: '10.0.0.100'
