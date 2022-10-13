@@ -33,25 +33,6 @@
   environment:
     PATH: '{{ path }}'
 
-- name: Clone node repo
-  git:
-    repo: '{{ aptos_repo }}'
-    dest: '{{ aptos_directory }}'
-    version: '{{ aptos_version }}'
-    update: true
-    force: true
-    recursive: false
-
-- name: Build node binary
-  command: '{{ item }}'
-  args:
-    chdir: '{{ aptos_directory }}'
-  with_items:
-    - 'nice -n 10 cargo clean'
-    - 'nice -n 10 cargo build --package aptos-node --release'
-  environment:
-    PATH: '{{ path }}'
-
 - name: Copy binaries
   become: true
   copy:
@@ -63,4 +44,3 @@
     remote_src: true
   loop:
     - aptos
-    - aptos-node

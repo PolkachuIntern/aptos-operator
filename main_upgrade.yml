@@ -6,5 +6,5 @@
     - '{{ network_varfile }}'
     - '{{ node_type_varfile }}'
   roles:
-    - aptos_install
+    - aptos_install_node
     - aptos_restart
