@@ -8,6 +8,15 @@
     force: true
     recursive: false
 
+- name: Run/update Aptos prep script
+  command: '{{ item }}'
+  args:
+    chdir: '{{ aptos_directory }}'
+  with_items:
+    - './scripts/dev_setup.sh -b'
+  environment:
+    PATH: '{{ path }}'
+
 - name: Build node binary
   command: '{{ item }}'
   args:
