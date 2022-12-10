@@ -11,7 +11,8 @@
 Once all set, you run one playbook to do a task, such as:
 
 ```bash
-ansible-playbook main.yml -e "target=validator_mainnet"
+ansible-playbook main.yml -e "target=fullnode_mainnet"
+ansible-playbook main_upgrade.yml  -e "target=fullnode_mainnet"
 ```
 
 The target can be:
