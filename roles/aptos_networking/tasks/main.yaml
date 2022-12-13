@@ -4,7 +4,7 @@
   ufw:
     rule: allow
     proto: tcp
-    from_ip: '{{ monitor_ip}}'
+    from_ip: '{{ monitor_ip }}'
     port: '{{ prometheus_port }}'
 
 - name: open validator's port to vfn
@@ -13,7 +13,7 @@
     rule: allow
     port: '6181'
     proto: tcp
-    from_ip: '{{ fullnode_ip }}'
+    from_ip: '{{ vfn_ip }}'
   when: node_type == "validator"
 
 - name: Open p2p port for validator and fullnode
@@ -22,7 +22,7 @@
     rule: allow
     proto: tcp
     port: '{{ p2p_port }}'
-  when: node_type == "validator" or node_type == "fullnode"
+  when: node_type == "validator" or node_type == "fullnode" or node_type == "indexer"
 
 - name: install nginx package on fullnode
   become: true
@@ -30,7 +30,7 @@
     name: nginx
     state: present
     update_cache: yes
-  when: node_type == "fullnode"
+  when: node_type == "fullnode" or node_type == "indexer"
 
 - name: Copy nginx config file to reverse proxy on fullnode
   become: true
@@ -40,7 +40,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  when: node_type == "fullnode"
+  when: node_type == "fullnode" or node_type == "indexer"
 
 - name: restart nginx service on fullnode
   become: true
@@ -50,7 +50,7 @@
     daemon_reload: yes
     enabled: yes
   changed_when: false
-  when: node_type == "fullnode"
+  when: node_type == "fullnode" or node_type == "indexer"
 
 - name: open nginx port on fullnode
   become: true
@@ -58,4 +58,4 @@
     rule: allow
     port: '80'
     proto: tcp
-  when: node_type == "fullnode"
+  when: node_type == "fullnode" or node_type == "indexer"

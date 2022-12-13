@@ -20,6 +20,7 @@ The target can be:
 - validator_mainnet
 - vfn_mainnet
 - fullnode_mainnet
+- indexer_mainnet
 - validator_testnet
 - vfn_testnet
 
