@@ -6,8 +6,8 @@
     - '{{ network_varfile }}'
     - '{{ node_type_varfile }}'
   roles:
-    - aptos_install_cli
-    - aptos_install_node
+    # - aptos_install_cli
+    # - aptos_install_node
     - aptos_configure
     - aptos_networking
     - aptos_launch
